@@ -1,5 +1,6 @@
 import React, { useEffect, Fragment } from "react";
-import "./Person.css";
+import classes from "./Person.css";
+import withClass from "../../../hoc/WithClass.js";
 import Aux from "../../../hoc/Aux.js";
 import Radium from "radium";
 
@@ -16,20 +17,17 @@ const person = props => {
   };
 
   return (
-    <Fragment>
-      <div className="Person" style={style}>
-        <p onClick={props.click}>
-          My name is {props.name} and I am {props.age} years old{" "}
-          {props.children}
-        </p>
-        <input
-          type="text"
-          onChange={props.nameChangeHandler}
-          value={props.name}
-        />
-      </div>
-    </Fragment>
+    <Aux>
+      <p onClick={props.click}>
+        My name is {props.name} and I am {props.age} years old {props.children}
+      </p>
+      <input
+        type="text"
+        onChange={props.nameChangeHandler}
+        value={props.name}
+      />
+    </Aux>
   );
 };
 
-export default Radium(person);
+export default withClass(Radium(person), " Person");
