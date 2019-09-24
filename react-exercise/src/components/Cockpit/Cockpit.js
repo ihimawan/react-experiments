@@ -1,10 +1,18 @@
 import React, { Component } from "react";
-import Radium from "radium";
 import Persons from "../Persons/Persons";
 
 class Cockpit extends Component {
-  state = {
-    showPersons: false
+  constructor() {
+    super();
+    this.state = {
+      showPersons: false
+    };
+
+    this.buttonRef = React.createRef();
+  }
+
+  componentDidMount = () => {
+    this.buttonRef.current.click();
   };
 
   togglePersonsHandler = () => {
@@ -36,7 +44,11 @@ class Cockpit extends Component {
       <div>
         <h1>bla bitch</h1>
 
-        <button onClick={this.togglePersonsHandler} style={style}>
+        <button
+          onClick={this.togglePersonsHandler}
+          style={style}
+          ref={this.buttonRef}
+        >
           Switch Name
         </button>
 
@@ -49,4 +61,4 @@ class Cockpit extends Component {
 // like shouldComponentUpdate - react will only rerender if the inputs changed; if not change, then will give back the stored component
 // for optimization of functional component.
 // example if props didn't change, then give the cached version of the component
-export default React.memo(Radium(Cockpit));
+export default React.memo(Cockpit);
