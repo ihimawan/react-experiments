@@ -1,5 +1,6 @@
 import React, { useEffect, Fragment } from "react";
-import classes from "./Person.css";
+import PropTypes from "prop-types";
+import "./Person.css";
 import withClass from "../../../hoc/WithClass.js";
 import Aux from "../../../hoc/Aux.js";
 import Radium from "radium";
@@ -30,4 +31,11 @@ const person = props => {
   );
 };
 
-export default withClass(Radium(person), " Person");
+person.propTypes = {
+  click: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  nameChangeHandler: PropTypes.func
+};
+
+export default withClass(Radium(person), "Person");
