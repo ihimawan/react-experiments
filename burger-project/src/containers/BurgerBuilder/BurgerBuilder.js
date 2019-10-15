@@ -3,6 +3,7 @@ import Aux from "../../hoc/Aux/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal.js";
+import Button from "../../components/UI/Button/Button"
 
 class BurgerBuilder extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class BurgerBuilder extends Component {
         bacon: 0,
         cheese: 0,
         meat: 0
-      }
+      },
+      purchasing: false
     };
   }
 
@@ -42,14 +44,30 @@ class BurgerBuilder extends Component {
     });
   };
 
+  purchaseHandler = () => {
+    this.setState({
+      purchasing: true
+    })
+  }
+
+  closePurchaseHandler = () => {
+    this.setState({
+      purchasing: false
+    })
+  }
+
   render = () => {
     return (
       <Aux>
-        <Modal>happy?</Modal>
+        <Modal show={this.state.purchasing} closePurchaseHandler={this.closePurchaseHandler}>
+          <Button btnType="Success">CANCEL</Button>
+          <Button btnType="Danger">OK</Button>
+        </Modal>
         <Burger ingridients={this.state.ingridients} />
         <BuildControls
-          addIngridientHandler={this.addIngridientHandler}
-          removeIngridientHandler={this.removeIngridientHandler}
+            addIngridientHandler={this.addIngridientHandler}
+            removeIngridientHandler={this.removeIngridientHandler}
+            purchaseHandler={this.purchaseHandler}
         />
       </Aux>
     );

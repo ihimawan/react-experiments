@@ -31,7 +31,7 @@ const buildControls = props => {
           add={props.addIngridientHandler}
           remove={props.removeIngridientHandler}
         />
-        <button>Order now</button>
+        <button onClick={props.purchaseHandler}>Order now</button>
       </Aux>
     );
   });
