@@ -24,18 +24,18 @@ const controls = [
 const buildControls = props => {
   const controlsDiv = controls.map(control => {
     return (
-      <Aux>
         <BuildControl
-          label={control.label}
-          type={control.type}
-          add={props.addIngridientHandler}
-          remove={props.removeIngridientHandler}
+            label={control.label}
+            type={control.type}
+            add={props.addIngridientHandler}
+            remove={props.removeIngridientHandler}
         />
-        <button onClick={props.purchaseHandler}>Order now</button>
-      </Aux>
     );
   });
-  return <div>{controlsDiv}</div>;
+  return <Aux>
+    {controlsDiv}
+    <button onClick={props.purchaseHandler}>Order now</button>
+  </Aux>;
 };
 
 export default buildControls;
