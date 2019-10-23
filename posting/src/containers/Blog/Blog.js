@@ -4,13 +4,14 @@ import Post from '../../components/Post/Post';
 import './Blog.css';
 import FullPost from "../../components/FullPost/FullPost";
 import NewPost from "../../components/NewPost/NewPost";
-import axios from "axios";
+import axios from "../../axios";
 
 class Blog extends Component {
 
     state = {
         posts: [],
-        selectedPostId: null
+        selectedPostId: null,
+        error: false
     }
 
     postClickedHandler = (id) => {
@@ -20,7 +21,7 @@ class Blog extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://jsonplaceholder.typicode.com/posts')
+        axios.get('/posts')
             .then((res) => {
                 const posts = res.data.slice(0, 4);
                 const updatedPosts = posts.map(post => {
@@ -31,16 +32,27 @@ class Blog extends Component {
                 })
                 this.setState({posts: updatedPosts});
             })
+            .catch(error => {
+                this.setState({
+                    error: true
+                })
+            })
     }
 
     render() {
 
-        const posts = this.state.posts.map(post => {
-            return <Post key={post.id} title={post.title} author={post.author} clicked={() => {
-                this.postClickedHandler(post.id)
-            }}/>
-        });
+        let posts = <p>Error fetching posts</p>
+
+        if (!this.state.error) {
+            posts = this.state.posts.map(post => {
+                return <Post key={post.id} title={post.title} author={post.author} clicked={() => {
+                    this.postClickedHandler(post.id)
+                }}/>
+            });
+        }
+
         return (
+
             <div>
                 <section
                     className="Posts">
@@ -53,7 +65,8 @@ class Blog extends Component {
                     <NewPost/>
                 </section>
             </div>
-        );
+        )
+            ;
     }
 }
 
